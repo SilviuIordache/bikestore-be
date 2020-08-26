@@ -62,7 +62,8 @@ exports.createBike = async (req, res) => {
    res.status(201).json({
      status: 'success',
      data: {
-       bike: newBike
+       bike: newBike,
+       file: req.file
      }
    });
  } catch (err) {
