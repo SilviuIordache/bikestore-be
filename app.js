@@ -22,7 +22,7 @@ app.use(cors());
 app.use(helmet());
 
 // serve static folder from the server
-app.use('/static', express.static(path.join(__dirname, "static" )))
+app.use('/static', express.static(path.join(__dirname, 'images' )))
 
 console.log(`Running in ${process.env.NODE_ENV} mode`)
 
