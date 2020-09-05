@@ -60,7 +60,7 @@ exports.updateBike = async (req, res) => {
 
 exports.createBike = async (req, res) => {
 
-  const filePath = `./static/${req.file.originalname}`
+  const filePath = `./images/${req.file.originalname}`
   try {
     await sharp(req.file.path)
       .resize(450)
@@ -79,7 +79,6 @@ exports.createBike = async (req, res) => {
       status: 'success',
       data: {
         bike: newBike,
-        file: req.file
       }
     });
   } catch(err) {
