@@ -1,4 +1,6 @@
 const Bike = require('../models/bikeModel.js')
+const sharp = require('sharp');
+const fs = require('fs');
 
 exports.getAllBikes = async (req, res) => {
  try {
@@ -57,22 +59,36 @@ exports.updateBike = async (req, res) => {
 };
 
 exports.createBike = async (req, res) => {
- try {
-   const newBike = await Bike.create(req.body);
-   res.status(201).json({
-     status: 'success',
-     data: {
-       bike: newBike,
-       file: req.file
-     }
-   });
- } catch (err) {
-   res.status(400).json({
-     status: 'fail',
-     message: 'Invalid data sent!',
-     err
-   });
- }
+
+  const filePath = `./static/${req.file.originalname}`
+  try {
+    await sharp(req.file.path)
+      .resize(450)
+      .toFile(filePath)
+  
+    // delete original file
+    fs.unlink(req.file.path, () => {});
+  } catch(err) {
+    res.status(422).json({err})
+  }
+
+
+  try {
+    const newBike = await Bike.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        bike: newBike,
+        file: req.file
+      }
+    });
+  } catch(err) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid data sent!',
+      err
+    });
+  }
 };
 
 exports.deleteBike = async (req, res) => {
