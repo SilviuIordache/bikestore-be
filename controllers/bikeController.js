@@ -2,22 +2,28 @@ const Bike = require('../models/bikeModel.js')
 const sharp = require('sharp');
 const fs = require('fs');
 
-exports.getAllBikes = async (req, res) => {
- try {
-   const bikes = await Bike.find();
-   res.status(200).json({
-     status: 'success',
-     results: bikes.length,
-     data: {
-       bikes
-     }
-   });
- } catch (err) {
-   res.status(404).json({
-     status: 'fail',
-     message: err
-   });
- }
+exports.getBikes = async (req, res) => {
+  try {
+  const searchFilter = req.query.search;
+    const bikes = await Bike.find( { 
+      'brand': { 
+        '$regex': searchFilter, 
+        '$options': 'i'
+      } 
+    });
+  res.status(200).json({
+    status: 'success',
+    results: bikes.length,
+    data: {
+      bikes
+    }
+  });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
 exports.getBike = async (req, res) => {

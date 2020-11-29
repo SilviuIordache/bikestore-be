@@ -11,7 +11,7 @@ router.use(function(req, res, next) {
 
 router
   .route('/')
-  .get(bikeController.getAllBikes)
+  .get(bikeController.getBikes)
   .post(bikeController.createBike);
 
 router
