@@ -16,9 +16,11 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true
   })
-  .then(() => console.log(`DB connection successful: ${DB}`));
+  .then(() => console.log(`DB server connection successful: ${DB}`));
 
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
-  console.log(`Server started. Listening on port: ${port}.`);
+  console.log(`Running in '${process.env.NODE_ENV}' mode`)
+  console.log(`API Server started: https://localhost:${port}.`);
 });
