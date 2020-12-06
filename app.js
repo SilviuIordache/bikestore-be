@@ -26,8 +26,6 @@ app.use('/static', express.static(path.join(__dirname, 'images' )))
 
 console.log(`Running in ${process.env.NODE_ENV} mode`)
 
-
-
 // file upload middlewear
 const upload = multer({ dest: './uploads/'});
 app.use(upload.single('file'));
@@ -43,4 +41,6 @@ app.use((req, res, next) => {
 
 // ROUTES
 app.use('/api/v1/bikes', bikeRouter);
+
+
 module.exports = app;
