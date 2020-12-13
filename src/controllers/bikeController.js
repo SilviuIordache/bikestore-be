@@ -78,7 +78,6 @@ exports.createBike = async (req, res) => {
     res.status(422).json({err})
   }
 
-
   try {
     const newBike = await Bike.create(req.body);
     res.status(201).json({
