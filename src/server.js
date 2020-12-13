@@ -24,8 +24,6 @@ app.use(helmet());
 // serve static folder from the server
 app.use('/static', express.static(path.join(__dirname, 'images' )))
 
-
-
 // file upload middlewear
 const upload = multer({ dest: './src/uploads/'});
 app.use(upload.single('file'));
@@ -38,9 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // ROUTES
 app.use('/api/v1/bikes', bikeRouter);
-
 
 module.exports = app;
