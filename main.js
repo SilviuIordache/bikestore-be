@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
-const app = require('./app');
+const app = require('./src/server.js');
 
 let DB = process.env.DB;
 
