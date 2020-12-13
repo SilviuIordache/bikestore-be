@@ -27,7 +27,7 @@ app.use('/static', express.static(path.join(__dirname, 'images' )))
 
 
 // file upload middlewear
-const upload = multer({ dest: './uploads/'});
+const upload = multer({ dest: './src/uploads/'});
 app.use(upload.single('file'));
 
 app.use(bodyParser.urlencoded({extended: false}));
