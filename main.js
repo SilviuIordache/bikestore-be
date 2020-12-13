@@ -3,20 +3,26 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
 const app = require('./src/server.js');
 
-let DB = process.env.DB;
+let dbURL = process.env.DB;
 
 if (process.env.DB_TYPE === 'local') {
-  DB = process.env.DB_LOCAL;
+  dbURL = process.env.DB_LOCAL;
 }
 
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  })
-  .then(() => console.log(`DB server connection successful: ${DB}`));
+(async() => {
+  try {
+    await mongoose
+      .connect(dbURL, {
+        useNewdbURLParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+      })
+      .then(() => console.log(`DB server connection successful: ${dbURL}`));
+  } catch (err) {
+    console.log(err);
+  }
+})();
 
 const port = process.env.PORT || 3000;
 
