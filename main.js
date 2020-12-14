@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
 const app = require('./src/server.js');
 
-let dbURL = process.env.DB;
+let dbURL = `${process.env.DB_URI}/${process.env.DB_NAME}`;
 
-if (process.env.DB_TYPE === 'local') {
-  dbURL = process.env.DB_LOCAL;
+if (process.env.NODE_ENV === 'production') {
+  dbURL += '?retryWrites=true&w=majority';
 }
 
 (async() => {
   try {
     await mongoose
       .connect(dbURL, {
-        useNewdbURLParser: true,
+        useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true
