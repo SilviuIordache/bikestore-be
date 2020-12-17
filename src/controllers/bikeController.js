@@ -1,16 +1,22 @@
 const Bike = require('../models/bikeModel.js')
 const sharp = require('sharp');
 const fs = require('fs');
+const { search } = require('../server.js');
 
 exports.getBikes = async (req, res) => {
   try {
   const searchFilter = req.query.search;
-    const bikes = await Bike.find( { 
+  let queryObject = {};
+
+  if(searchFilter) {
+    queryObject = { 
       'brand': { 
         '$regex': searchFilter, 
         '$options': 'i'
       } 
-    });
+    }
+  }
+    const bikes = await Bike.find(queryObject);
   res.status(200).json({
     status: 'success',
     results: bikes.length,
