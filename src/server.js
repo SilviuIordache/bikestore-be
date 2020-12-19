@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 } 
 
 // enable cross origin resource sharing
-app.use(cors());
+app.use(cors()); 
 
 // enable security features
 app.use(helmet());
