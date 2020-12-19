@@ -18,7 +18,7 @@ const bikeSchema = new Schema({
    type: Number,
    required: [true, 'A bike must have a price']
  },
- imageName: {
+ imageUrl: {
    type: String
  }
 }, { versionKey: false });
