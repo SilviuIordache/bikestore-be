@@ -1,7 +1,9 @@
 const Bike = require('../models/bikeModel.js')
-const sharp = require('sharp');
 const fs = require('fs');
-const { search } = require('../server.js');
+const { cloudinary }  = require('../utils/cloudinary.js');
+
+// possibly extra and to be deleted
+// const { search } = require('../server.js');
 
 exports.getBikes = async (req, res) => {
   try {
@@ -16,7 +18,7 @@ exports.getBikes = async (req, res) => {
       } 
     }
   }
-    const bikes = await Bike.find(queryObject);
+  const bikes = await Bike.find(queryObject);
   res.status(200).json({
     status: 'success',
     results: bikes.length,
@@ -71,12 +73,11 @@ exports.updateBike = async (req, res) => {
 };
 
 exports.createBike = async (req, res) => {
-  const filePath = `./src/images/${req.file.originalname}`
   try {
-    await sharp(req.file.path)
-      .resize(450)
-      .toFile(filePath)
-  
+    //upload to cloudinary
+    const uploadResponse = await cloudinary.uploader.upload(req.file.path , { upload_preset: 'bikes_upload_preset' }); 
+    // add the cloudinary image url to the request body
+    req.body.imageUrl = uploadResponse.url;
     // delete original file
     fs.unlink(req.file.path, () => {});
   } catch(err) {
