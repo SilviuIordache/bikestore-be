@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
-const dotenv = require('dotenv/config');
 const app = require('./src/server.js');
+
+// loads environment variables from the .env file. These variables are accesible through process.env
+require('dotenv').config();
 
 let dbURL = `${process.env.DB_URI}/${process.env.DB_NAME}`;
 
